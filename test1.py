@@ -1,0 +1,3 @@
+import sevenSegment
+
+sevenSegment.startup()
