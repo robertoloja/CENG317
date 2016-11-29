@@ -41,9 +41,7 @@ def startup():
 
     GPIO.setmode(GPIO.BCM)
 
-    for segment in numbers[8]: # as the 8 digit uses all segments
-        GPIO.setup(segment, GPIO.OUT, initial=GPIO.HIGH)
-
+    # Perform startup animation
     for i in range(2):
         for segment in numbers[0]:
             GPIO.setup(segment, GPIO.OUT, initial=GPIO.LOW)

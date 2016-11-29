@@ -25,14 +25,21 @@ average = 0
 
 while True:
     values = mcp.read_adc(0)
-    time.sleep(0.002)
+    time.sleep(0.01)
     count += 1
     average += values
 
-    if count == 99:
+    if count == 9:
         count = 0
-        average /= 100
+        average /= 10
         average -= initial
+
+        if average <= 0:
+            average = 0
+
+        if average >= 1023:
+            average = 1023
+
         sys.stdout.write('\rWeight: %s  ' % repr(average))
         sevenSegment.displayNumber(int((average - 1) / 102.3))
         sys.stdout.flush()
