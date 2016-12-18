@@ -23,6 +23,14 @@ initial /= 100
 count = 0
 average = 0
 
+def weight(x):
+    x = int(x)
+    a = 1E-8*x**4 - 1E-5*x**3 + 0.0036*x**2 - 0.1661*x + 1.5569 # R^2 = 0.9991
+    b = 1E-8*x**4 - 7E-6*x**3 + 0.0007*x**2 + 0.2831*x - 6.8611 # R^2 = 0.9984
+    c = 2E-9*x**4 - 2E-6*x**3 + 0.0004*x**2 + 0.2194*x - 6.515  # R^2 = 0.9989
+
+    return (a + b + c) / 3
+
 while True:
     values = mcp.read_adc(0)
     time.sleep(0.01)
@@ -32,7 +40,6 @@ while True:
     if count == 9:
         count = 0
         average /= 10
-        average -= initial
 
         if average <= 0:
             average = 0
@@ -40,7 +47,8 @@ while True:
         if average >= 1023:
             average = 1023
 
-        sys.stdout.write('\rWeight: %s  ' % repr(average))
+        sys.stdout.write('\rWeight: %s  ' % repr(int(weight(average))))
         sevenSegment.displayNumber(int((average - 1) / 102.3))
         sys.stdout.flush()
         average = 0
+
