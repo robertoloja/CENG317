@@ -12,14 +12,6 @@ MOSI = 4
 CS   = 17
 mcp = Adafruit_MCP3008.MCP3008(clk=CLK, cs=CS, miso=MISO, mosi=MOSI)
 
-initial = 0
-
-for i in range(99):
-    initial += mcp.read_adc(0)
-    time.sleep(0.002)
-
-initial /= 100
-
 count = 0
 average = 0
 
