@@ -4,6 +4,7 @@ import time
 import sys
 
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 # These are the 7-segment display GPIO pins. 
 A = 26
@@ -38,7 +39,6 @@ def displayNumber(num):
 
 
 def startup():
-
     GPIO.setmode(GPIO.BCM)
 
     # Perform startup animation

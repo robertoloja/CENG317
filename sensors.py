@@ -23,14 +23,22 @@ def weight(x):
 
     return (a + b + c) / 3
 
+def takeFirstReading():
+    for i in range():
+        values = mcp.read_adc(0)
+
+oldVal = mcp.read_adc(0)
+
 while True:
     values = mcp.read_adc(0)
+
+    #if values in range(oldVal - 10, oldVal + 11):
     time.sleep(0.01)
     count += 1
     average += values
+    oldVal = values
 
-    if count == 9:
-        count = 0
+    if count % 9 == 0:
         average /= 10
 
         if average <= 0:
@@ -39,8 +47,9 @@ while True:
         if average >= 1023:
             average = 1023
 
-        sys.stdout.write('\rWeight: %s  ' % repr(int(weight(average))))
+        sys.stdout.write('\rWeight: %s  ' % repr(int(weight(average) if
+            weight(average) >= 0 else 0)))
+        print("ADC: "+ repr(average))
         sevenSegment.displayNumber(int((average - 1) / 102.3))
         sys.stdout.flush()
         average = 0
-
